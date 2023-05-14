@@ -8,7 +8,9 @@ import (
 	rngprime "e2e-api-server/rngPrime"
 
 	socketio "github.com/googollee/go-socket.io"
-	"github.com/labstack/echo/v4"
+
+	"github.com/labstack/echo"
+	"github.com/labstack/echo/middleware"
 )
 
 func primeKeyMiddleWare(pk rngprime.PrimeKey) echo.MiddlewareFunc {
@@ -35,6 +37,10 @@ func main() {
 
 	e := echo.New()
 	db := db.NewPostgresClient()
+	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+		AllowOrigins: []string{"*"},
+		AllowHeaders: []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept},
+	}))
 	e.Use(primeKeyMiddleWare(PrimeKey))
 	e.Use(dbMiddleware(db))
 
@@ -47,6 +53,7 @@ func main() {
 	e.GET("/api/get_prime_numbers", handlers.GetPublicPrimeNumbers)
 	e.POST("/api/login", user.LoginUser)
 	e.POST("/api/signup", user.SignUpUser)
+	e.POST("/api/sync-public-key", user.SyncPublicKey)
 
 	e.Logger.Fatal(e.Start("localhost:1323"))
 }

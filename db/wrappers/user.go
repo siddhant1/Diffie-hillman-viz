@@ -9,3 +9,8 @@ type User struct {
 	Username       string `json:"username"`
 	HashedPassword int    `json:"password"`
 }
+
+type PublicKeyRequest struct {
+	PublicKey string `json:"publicKey"`
+	Name      string `json:"name"`
+}

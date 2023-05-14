@@ -4,7 +4,7 @@ import (
 	rngprime "e2e-api-server/rngPrime"
 	"net/http"
 
-	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo"
 )
 
 func GetPublicPrimeNumbers(c echo.Context) error {

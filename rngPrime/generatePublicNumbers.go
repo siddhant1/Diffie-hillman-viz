@@ -10,7 +10,7 @@ type PrimeKey struct {
 }
 
 func GeneratePublicNumbers() PrimeKey {
-	var MAX_BITS int = 2000
+	var MAX_BITS int = 10
 
 	for {
 		// Generate a random number with the specified bit size
