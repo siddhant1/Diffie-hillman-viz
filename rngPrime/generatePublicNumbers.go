@@ -5,7 +5,7 @@ import (
 )
 
 type PrimeKey struct {
-	G int32  `json:"id,string"`
+	G int32  `json:"g,string"`
 	N string `json:"n,string"`
 }
 
